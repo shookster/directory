@@ -12,25 +12,20 @@ function EmployeeData({ users }) {
     }
 
 
-// function EmployeeTable ({ heading}) {
-//     return (
-//             <table>
-//                 <thead>
-//                     <tr>
-//                         {heading.map(({name})=> {
-//                             return (
-//                                 <th>
-//                                     {name}
-//                                 </th>
-//                             )
-//                         })}
-//                     </tr>
-//                 </thead>
-//                 <tbody>
     return (
         <tbody>
+            {/* 2 buttons go here */}
                     {users[0] !== undefined && users[0].name !== undefined ? (
-                        users.map(({ login, name, picture, phone, email, dob}) => {
+
+
+                        users.map(({ 
+                            login,
+                            name,
+                            picture,
+                            phone,
+                            email,
+                            dob
+                        }) => {
                             return (
                                 <tr key={login.uuid}>
                                     <td dat-th="Image" className="align-middle">
@@ -40,7 +35,7 @@ function EmployeeData({ users }) {
                                         className="img-responsive"
                                         />
                                     </td>
-                                    <td dat-th="Phone" className="align-middle">
+                                    <td dat-th="Name" className="align-middle">
                                         {name.first} {name.last}
                                     </td>
                                     <td data-th="Phone" className="align-middle">
@@ -57,6 +52,9 @@ function EmployeeData({ users }) {
                                 </tr>
                             );
                         })
+                        
+
+
                     ) : (
                         <>
                         </>

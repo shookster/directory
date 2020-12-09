@@ -7,64 +7,12 @@ import API from "../utils/API.js";
 export default class Body extends Component {
     state= {
         users: [{}],
-        sortedUsers: [{}],
-        order: "descending"
+        sortedUsers: [{}]
     }
     heading = [
         "Image", "Name", "Phone", "Email", "DOB"
     ]
-    handleSearch = heading => {
-        console.log(this.target.value)
-        if (this.state.order === "descending") {
-            this.setState({
-                order: "ascending"
-            })
-        } else {
-            this.setState({
-                order: "descending"
-            })
-        } 
-        
-        const compareFnc = (a, b) => {
-            if (this.state.order === "ascend") {
-                if (a[heading] === undefined) {
-                    return 1;
-                } else if (b[heading] === undefined) {
-                    return -1;
-                }
-                else if (heading === "name") {
-                    return a[heading].first.localeCompare(b[heading].first);
-                } else {
-                    return a[heading] - b[heading];
-                }
-            } else {
-                if (a[heading] === undefined) {
-                    return 1;
-                } else if (b[heading] === undefined) {
-                    return -1;
-                }
-                else if (heading === "name") {
-                    return b[heading].first.localeCompare(a[heading].first);
-                } else {
-                    return b[heading] - a[heading];
-                }
-            }
-        }
-        const sortedUsers = this.state.sortedUsers.sort(compareFnc);
-        this.setState({ sortedUsers: sortedUsers });
-    }
 
-    handleSearchChange = event => {
-        console.log(event.target.value);
-        const filter = event.target.value;
-        const filteredList = this.state.users.filter(item => {
-            let values = Object.values(item)
-            .join("")
-            .toLowerCase();
-        return values.indexOf(filter.toLowerCase()) !== -1;
-        })
-        this.setState({ sortedUsers: filteredList });
-    }
     componentDidMount() {
         API.getUsers().then(results => {
             this.setState({
@@ -74,10 +22,27 @@ export default class Body extends Component {
         });
     }
 
+    checkA() {
+            this.setState({
+                ...this.state.users,
+                sortedUsers: this.state.users.filter(user => user.name.first.charAt(0) === "A")
+            })
+    } 
+
+    sortAlpha() {
+        this.setState({
+            ...this.state.users,
+            sortedUsers: this.state.users.sort((a, b) => a.name.last.localeCompare(b.name.last))
+        })
+    }
+
+
+
     render() {
         return (
             <>
-            <Navbar handleSearch = {this.handleSearch}/>
+            <button onClick={()=> this.checkA()}>Check A</button>
+            <button onClick={()=> this.sortAlpha()}>Sort Alpha</button>
             <div className="data-area">
             <EmployeeTable 
                 heading = {this.heading}
