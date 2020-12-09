@@ -1,6 +1,6 @@
 import React from "react";
 import { Component } from "react";
-import Navbar from "./Navbar.js";
+// import Navbar from "./Navbar.js";
 import EmployeeTable from "./EmployeeTable.js"
 import API from "../utils/API.js";
 
